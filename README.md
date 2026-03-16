@@ -17,11 +17,6 @@ cd DOCUMENT-STORER
 npm install
 ```
 
-## Usage
-Run the application using:
-
-```bash
-npm start
 ```
 
 ## Contributing
