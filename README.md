@@ -21,3 +21,6 @@ npm install
 ## Contributing
 If you'd like to contribute, please fork the repository and submit a pull request.
 
+## Contact
+
+For any inquiries, please contact me at rishabh.2005thakurabcd@gmail.com
