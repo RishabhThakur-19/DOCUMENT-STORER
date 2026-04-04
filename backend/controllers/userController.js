@@ -27,11 +27,30 @@ exports.generatePDF=async(req,res)=>{
     }  
     res.setHeader('Content-Disposition',`attachment; filename=${safeName}.pdf`);
     doc.pipe(res);
-    doc.fontSize(20).text(`Report for ${user.name}`,{align:'center'});
-    doc.moveDown();
+    doc.font("Helvetica-Bold").fontSize(30).text(`Report for ${user.name}`,50);
+    doc.moveDown(10);
+    const photoboxX=490;
+    const photoboxY=40;
+    const photoboxWidth=100;
+    const photoboxheight=100
+    doc.rect(photoboxX,photoboxY,photoboxWidth,photoboxheight).stroke();
+    if(user.photograph){
+        
+            doc.image(user.photograph,photoboxX+5,photoboxY+5, 
+                {width:photoboxWidth-10,
+                height:photoboxWidth-10,
+                fit:[photoboxWidth-10,photoboxWidth-10]});
+                }
+    else{
+        doc.fontSize(11).text(
+            "PHOTO NOT FOUND",
+            photoboxX+8,
+            photoboxY+photoboxheight/4
+        )
+    }
 
     // additional user details to the PDF
-    let y=90;
+    let y=140;
     const checkpage=()=>{
         if(y>700){
             doc.addPage();
@@ -43,17 +62,18 @@ exports.generatePDF=async(req,res)=>{
 
     const section=(title)=>{
         checkpage();
-        doc.moveTo(40,y).lineTo(550,y).stroke("#bbbbbb");
-        y+=10;
-        doc.font("Helvetica-Bold").fontSize(16).text(title,40,y);
         y+=20;
+        doc.font("Helvetica-Bold").fontSize(20).text(title,50,y);
+        y+=30;
     };
 
     // field fucntion
     const field=(label,value)=>{
         checkpage();
-        doc.font("Helvetica-Bold").fontSize(12).text(label + ":",50,y);
-        doc.font("Helvetica").text(String(value || "N/A") ,220,y,{width:300});
+        doc.rect(40,y,200,20).stroke();
+        doc.rect(240,y,300,20).stroke();
+        doc.font("Helvetica-Bold").fontSize(12).text(label + ":",45,y+5);
+        doc.font("Helvetica").text(String(value || "N/A") ,245,y+5,{width:300});
         y+=20;
 
     };
