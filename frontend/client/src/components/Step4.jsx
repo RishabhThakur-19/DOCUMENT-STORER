@@ -20,15 +20,30 @@ export default function Step4({data,back }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
-    setData4({...data4, [e.target.name]: e.target.value});
+    setData4({...data4,[e.target.name]: e.target.files ? e.target.files[0] : e.target.value});
   } ;
   const submitForm=async(e)=>{
     e.preventDefault();
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-  
+  // TO BE READ FOR UNDERSTANDING
   try{
-    const res= await axios.post("http://localhost:5000/api/users/submit",{...data,...data4});
+    const formData = new FormData(); // ✅ FIRST create it
+
+    // append all fields
+    Object.entries({ ...data, ...data4 }).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const res = await axios.post(
+      "http://localhost:5000/api/users/submit",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }
+    );
     navigate(`/preview/${res.data._id}`);
   }catch(err){
     alert("Error in saving Data");
@@ -53,7 +68,7 @@ export default function Step4({data,back }) {
         <input className={inputStyle} name="husbandPolicy" placeholder="Husband Policy Number (if any)" onChange={handleChange} />
         <input className={inputStyle} name="itrs" placeholder="ITRS" onChange={handleChange}/>
         <input className={inputStyle} name="nachSign" placeholder="NACH Sign" onChange={handleChange}/>
-        <input className={inputStyle} name="photograph" placeholder="Photograph" onChange={handleChange}/>
+        <input type="file" className={inputStyle} name="photograph" placeholder="Photograph" accept="image/*" onChange={handleChange}/>
       </div>
       <div className="flex justify-between mt-6">
         <button type="button" onClick={back} className="px-6 py-3 bg-slate-500 text-white rounded-lg hover:bg-slate-600 transition font-semibold">

@@ -1,11 +1,18 @@
 const User=require("../models/User");
 const PDFDocument = require('pdfkit');
+const path=require("path");
 
 exports.submitData=async(req,res)=>{
-    const data=await User.create(req.body);
+    try{
+            console.log("FILE:", req.file); 
+    console.log("BODY:", req.body);
+    const data=await User.create({...req.body, photograph: req.file ? req.file.path : null});
     res.json(data);
      console.log("Body received",req.body);
-    };
+    }catch (err) {
+    console.log(err);
+    res.status(500).send("error");
+  }}
 
    
     //generate pdf
@@ -18,7 +25,7 @@ exports.generatePDF=async(req,res)=>{
     }
     const doc=new PDFDocument();
     res.setHeader('Content-Type','application/pdf');  
-    const safeName=(user.name || "user").replace(/[^a-z0-9]/g,"_").toLowerCase();
+    const safeName=(user.name.toLocaleLowerCase()+"@generated-report(" + new Date().toLocaleString().toLocaleLowerCase() + ")").replace(/\s+/g, '').replace(/[^a-z0-9\-()_.@]/g,"-").toLowerCase();
     if(req.query.preview==="true"){
         res.setHeader('Content-Disposition',"inline");          
     }else{
@@ -29,6 +36,7 @@ exports.generatePDF=async(req,res)=>{
     doc.pipe(res);
     doc.font("Helvetica-Bold").fontSize(30).text(`Report for ${user.name}`,50);
     doc.moveDown(10);
+    //  TO BE READ FOR UNDERSTANDING
     const photoboxX=490;
     const photoboxY=40;
     const photoboxWidth=100;
@@ -36,10 +44,12 @@ exports.generatePDF=async(req,res)=>{
     doc.rect(photoboxX,photoboxY,photoboxWidth,photoboxheight).stroke();
     if(user.photograph){
         
-            doc.image(user.photograph,photoboxX+5,photoboxY+5, 
+            doc.image(path.resolve(user.photograph),photoboxX+5,photoboxY+5, 
                 {width:photoboxWidth-10,
-                height:photoboxWidth-10,
-                fit:[photoboxWidth-10,photoboxWidth-10]});
+                height:photoboxheight-10,
+                fit:[photoboxWidth-10,photoboxWidth-10],
+                align:"center",
+                valign:"center"});
                 }
     else{
         doc.fontSize(11).text(

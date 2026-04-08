@@ -1,10 +1,10 @@
-import logo from "../assets/lic.png";
+import logo from "../assets/logo2.png";
 export default function Loader({text="Loading..."}) {
     return (
-        <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-white to-yellow-50 flex flex-col items-center justify-center z-50">
+        <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-white to-yellow-50 flex flex-col items-center justify-center z-50 ">
             {/*logo*/}
             <div className="flex flex-col items-center animate-fadeIn"
-            ><img src={logo} alt="LIC" className="w-24 mb-4 drop-shadow-lg" />
+            ><img src={logo} alt="HEAVEN's CODE" className="w-96 h-auto mb-4 drop-shadow-lg" />
 
 <div className="relative">
     <div className=" w-20 h-20 border-[6px] border-blue-400/30 rounded-full"> </div>

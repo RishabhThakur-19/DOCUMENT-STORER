@@ -10,10 +10,10 @@ export default function App() {
   const [starting,setStarting]=useState(true);
   useEffect(()=>{
     const timer=setTimeout(()=>
-    setStarting(false),1000);
+    setStarting(false),3000);
     return ()=>clearTimeout(timer);
 },[]);
-if (starting)return <Loader text="Welcome to LIC Policy Portal" />
+if (starting)return <Loader text="Welcome to HEAVEN'S CODE policy Portal" />
   return (
     <AnimatePresence mode="wait">
     <Routes>
