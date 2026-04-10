@@ -26,7 +26,7 @@ export default function Step4({data,back }) {
     e.preventDefault();
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-  // TO BE READ FOR UNDERSTANDING
+  // TO BE READ FOR MORE UNDERSTANDING
   try{
     const formData = new FormData(); // ✅ FIRST create it
 
