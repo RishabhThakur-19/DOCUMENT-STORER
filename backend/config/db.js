@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config({path:'./authentication/.env'});
 const connectDB = async () => {
    try{ 
-    await mongoose.connect("mongodb://127.0.0.1:27017/docdb");
+    await mongoose.connect(process.env.URI,{
+        dbName:"DocumentStore",
+    });
     console.log("MongoDB connected");
 }catch(err){
     console.log("failed");
