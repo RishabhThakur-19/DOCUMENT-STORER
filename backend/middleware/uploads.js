@@ -1,4 +1,4 @@
-const multer = require("multer");  // TO BE READ FOR MORE UNDERSTANDING
+const multer = require("multer");  // TO BE READ FOR UNDERSTANDING
 const path = require("path");
 
 const storage = multer.diskStorage({
