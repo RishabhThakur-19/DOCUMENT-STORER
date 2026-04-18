@@ -40,6 +40,6 @@ const userSchema = new mongoose.Schema({
   nachSign:String,
   photograph:String,
 },{timestamps:true});
-module.exports = mongoose.model("User",userSchema);
+module.exports = mongoose.model("User",userSchema,"PolicyDocuments");
 
 
