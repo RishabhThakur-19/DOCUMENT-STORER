@@ -36,7 +36,7 @@ exports.generatePDF=async(req,res)=>{
     doc.pipe(res);
     doc.font("Helvetica-Bold").fontSize(30).text(`Report for ${user.name}`,50);
     doc.moveDown(10);
-    //  TO BE READ FOR more UNDERSTANDING
+    //  TO BE READ FOR UNDERSTANDING
     const photoboxX=490;
     const photoboxY=40;
     const photoboxWidth=100;
