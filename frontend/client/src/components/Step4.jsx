@@ -31,7 +31,7 @@ export default function Step4({data,back }) {
 
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-  // TO BE READ FOR MORE UNDERSTANDING
+  // TO BE READ FOR UNDERSTANDING
   try{
     const formData = new FormData(); // ✅ FIRST create it
 
