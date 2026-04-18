@@ -24,6 +24,11 @@ export default function Step4({data,back }) {
   } ;
   const submitForm=async(e)=>{
     e.preventDefault();
+    // if (!data4.photograph || !data4.incomeSource || !data4.annualIncome) {
+    //   alert("Please fill all required fields (Photograph, Income Source, Annual Income)");
+    //   return;
+    // }
+
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
   // TO BE READ FOR MORE UNDERSTANDING
@@ -68,7 +73,10 @@ export default function Step4({data,back }) {
         <input className={inputStyle} name="husbandPolicy" placeholder="Husband Policy Number (if any)" onChange={handleChange} />
         <input className={inputStyle} name="itrs" placeholder="ITRS" onChange={handleChange}/>
         <input className={inputStyle} name="nachSign" placeholder="NACH Sign" onChange={handleChange}/>
+       <div>
+        <label className="block text-sm font-medium text-gray-700">Photograph</label>
         <input type="file" className={inputStyle} name="photograph" placeholder="Photograph" accept="image/*" onChange={handleChange}/>
+        </div> 
       </div>
       <div className="flex justify-between mt-6">
         <button type="button" onClick={back} className="px-6 py-3 bg-slate-500 text-white rounded-lg hover:bg-slate-600 transition font-semibold">
